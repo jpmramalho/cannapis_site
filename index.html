@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cannapis - Apoio, Pesquisa e Cuidado Humanizado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght%40400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Estilos gerais e reset básico */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8; /* Fundo mais suave */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%; /* Aumentar um pouco a largura */
+            max-width: 1200px; /* Limite máximo para telas grandes */
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Top Bar de Contatos */
+        .top-contact-bar {
+            background-color: #000000; /* Cor preta */
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.95em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap; /* Permite quebrar em várias linhas em telas pequenas */
+        }
+
+        .top-contact-bar span {
+            margin-right: 15px;
+            white-space: nowrap;
+        }
+
+        .top-contact-bar .contact-icons a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .top-contact-bar .contact-icons a:hover {
+            color: #28a745; /* Cor verde no hover */
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #ffffff; /* Fundo de fallback */
+            padding: 20px 0; /* Padding para dar espaço ao conteúdo */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08); /* Sombra mais suave */
+            display: flex;
+            flex-direction: column; /* Manter flex-direction column para empilhar */
+            align-items: center; /* Centralizar itens horizontalmente */
+            justify-content: center; /* Centralizar itens verticalmente */
+            position: relative; /* Para posicionar o overlay e a imagem de fundo */
+            overflow: hidden; /* Garante que a imagem não vaze */
+            min-height: 250px; /* Altura mínima para a imagem ser visível */
+        }
+
+        header::before { /* Pseudo-elemento para a imagem de fundo */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('7.jpg'); /* Define a imagem como fundo */
+            background-size: cover; /* Redimensiona para cobrir todo o elemento */
+            background-repeat: no-repeat; /* Evita que a imagem se repita */
+            background-position: right; /* ALTERADO: Move a imagem para a direita */
+            z-index: 0; /* Coloca a imagem atrás do conteúdo */
+            filter: brightness(0.7); /* Escurece a imagem para melhor contraste do texto */
+        }
+
+        header .logo {
+            max-width: 120px; /* Tamanho da logo */
+            height: auto;
+            margin-bottom: 5px;
+            z-index: 1; /* Coloca a logo por cima da imagem de fundo */
+        }
+
+        header .header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centralizado: ALINEI AO CENTRO O CONTEÚDO DENTRO DESTE DIV */
+            text-align: center; /* Centralizado: ALINEI O TEXTO AO CENTRO */
+            z-index: 1; /* Coloca o texto por cima da imagem de fundo */
+            margin-right: 0; /* Removido push para esquerda */
+            margin-left: 0; /* Removido push para esquerda */
+            margin-top: 10px; /* Adicionado um pouco de margem para separar da logo */
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.2em; /* Tamanho maior */
+            color: white; /* ALTERADO PARA BRANCO */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* ADICIONADO SOMBRA */
+            white-space: nowrap;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.3em;
+            color: white; /* ALTERADO PARA BRANCO */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* ADICIONADO SOMBRA */
+            white-space: nowrap;
+        }
+
+        /* Navegação */
+        nav {
+            background-color: #ffffff; /* Branco principal */
+            padding: 0.8rem 0; /* Mais padding */
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: auto; /* Deixando a altura automática para acomodar */
+            min-height: 60px; /* Altura mínima */
+            display: flex;
+            align-items: center;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between; /* Espaçar itens e botão */
+            align-items: center;
+            flex-wrap: wrap; /* Permitir quebra de linha em telas pequenas */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centralizar itens em telas menores */
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 18px; /* Mais espaço entre os itens */
+            padding: 8px 0;
+        }
+
+        nav ul li a {
+            color: #333; /* Cor dos links */
+            text-decoration: none;
+            font-weight: 600; /* Um pouco mais encorpado */
+            font-family: 'Montserrat', sans-serif; /* Fonte dos links */
+            transition: color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap;
+            letter-spacing: 0.5px; /* Espaçamento entre letras */
+        }
+
+        nav ul li a:hover {
+            color: #28a745; /* Cor verde no hover */
+            transform: translateY(-2px); /* Pequeno efeito de elevação */
+        }
+
+        /* Botão "Associe-se" */
+        .btn-associar {
+            background-color: #007bff; /* Azul vibrante */
+            color: white;
+            padding: 12px 25px; /* Mais padding */
+            border: none;
+            border-radius: 8px; /* Mais arredondado */
+            text-decoration: none;
+            font-size: 1.05em;
+            font-weight: 700; /* Mais encorpado */
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-associar:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('PlanoFundo1.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            min-height: 225px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.2);
+        }
+
+        .hero-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-section p {
+            font-size: 1.4em;
+            max-width: 800px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+        }
+
+        /* Seções de conteúdo para evitar que a nav cubra o topo */
+        section {
+            scroll-margin-top: 80px; /* Compensar a altura da nav fixa */
+            padding-bottom: 40px; /* Padding inferior padrão para todas as seções */
+        }
+
+        /* Estilos de título de seção padrão */
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            text-align: center;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #28a745;
+            border-radius: 2px;
+        }
+
+        /* Seção "A Cannapis" */
+        .about-section {
+            background-color: #ffffff;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            padding-top: 20px;
+        }
+
+        .about-section .intro-text {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #28a745;
+        }
+
+        .about-section p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            color: #555;
+        }
+
+        .about-section ul {
+            max-width: 700px;
+            margin: 30px auto 0 auto;
+            text-align: left;
+        }
+
+        .about-section ul li {
+            background-color: #eaf7ed;
+            margin-bottom: 12px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            color: #333;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .about-section ul li::before {
+            content: '✅';
+            margin-right: 15px;
+            font-size: 1.2em;
+            color: #28a745;
+        }
+
+        /* Seção de Galeria */
+        .gallery-section {
+            padding: 40px 0;
+            text-align: center;
+            background-color: #ffffff;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallery-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #28a745;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            margin: 0;
+            font-size: 1em;
+            color: #555;
+        }
+
+        /* Seção de Tratamentos */
+        .treatments-section {
+            background-color: #eaf7ed;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            padding-top: 20px;
+        }
+
+        .treatment-item {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .treatment-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .treatment-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .treatment-item p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        /* Seção de Pesquisas */
+        .research-section {
+            background-color: #fefefe;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            padding-top: 20px;
+        }
+
+        .research-item {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .research-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .research-item h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            color: #28a745;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .research-item p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .research-item a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .research-item a:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        /* Seção de Contatos */
+        .contact-section {
+            background-color: #ffffff;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            padding-top: 20px;
+        }
+
+        .contact-section h2 {
+            color: #28a745;
+        }
+
+        .contact-section .contact-info p {
+            margin: 18px 0;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-section .contact-info p a {
+            color: #444;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .contact-section .contact-info p a:hover {
+            color: #28a745;
+        }
+
+        .contact-section .contact-info p i {
+            margin-right: 15px;
+            font-size: 1.5em;
+            color: #28a745;
+        }
+
+        /* Seção de Localização (agora no final) */
+        .location-section {
+            background-color: #e0f2f7;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            padding-top: 20px;
+        }
+
+        .location-section h2 {
+            color: #1a73e8;
+        }
+
+        .location-section .address-line {
+            font-size: 1.15em;
+            line-height: 1.7;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .location-section .address-line:last-of-type {
+            margin-bottom: 20px;
+        }
+
+        .location-section a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .location-section a:hover {
+            text-decoration: underline;
+            color: #115293;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            font-size: 1em;
+            letter-spacing: 0.5px;
+        }
+
+        /* ------------------------------------------------------------------------------------- */
+        /* RESPONSIVIDADE - MELHORIAS */
+        /* ------------------------------------------------------------------------------------- */
+
+        /* Adicionando ícone de hamburguer para mobile */
+        .menu-toggle {
+            display: none; /* Esconde por padrão em desktop */
+            font-size: 2em;
+            cursor: pointer;
+            color: #333;
+            z-index: 1001; /* Garante que o ícone esteja acima de outros elementos */
+            padding: 10px; /* Área de toque maior */
+        }
+
+        /* Estilos para o botão "Associe-se" que aparece só em desktop */
+        .btn-associar.desktop-only {
+            display: inline-block; /* Visível por padrão em desktop */
+        }
+
+        /* Estilos para o botão "Associe-se" que aparece só no menu mobile */
+        .btn-associar.mobile-only {
+            display: none; /* Escondido por padrão */
+        }
+
+        /* Menu de navegação em mobile */
+        @media (max-width: 768px) {
+            .top-contact-bar {
+                flex-direction: column;
+                padding: 8px 10px;
+            }
+
+            .top-contact-bar span {
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+
+            .top-contact-bar .contact-icons a {
+                font-size: 1.1em;
+            }
+
+            header {
+                min-height: 200px; /* Ajuste para mobile */
+            }
+
+            header .logo {
+                max-width: 100px; /* Ajuste para mobile */
+            }
+
+            header h1 {
+                font-size: 2.8em; /* Ajuste para mobile */
+            }
+
+            header p {
+                font-size: 1.1em; /* Ajuste para mobile */
+            }
+
+            nav .container {
+                flex-direction: row; /* Volta a ser row para o toggle e o botão */
+                justify-content: space-between;
+                align-items: center;
+                padding: 0 20px; /* Adiciona padding horizontal */
+            }
+
+            nav ul {
+                display: none; /* Esconde a lista de navegação por padrão em mobile */
+                flex-direction: column;
+                width: 100%;
+                background-color: #ffffff;
+                position: absolute;
+                top: 100%; /* Abaixo da nav bar */
+                left: 0;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-top: 1px solid #eee;
+                padding: 10px 0;
+            }
+
+            nav ul.active {
+                display: flex; /* Mostra a lista quando a classe 'active' está presente */
+            }
+
+            nav ul li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+                padding: 12px 0; /* Aumenta o padding para facilitar o clique */
+                border-bottom: 1px solid #f0f0f0; /* Separador de itens */
+            }
+
+            nav ul li:last-child {
+                border-bottom: none;
+            }
+
+            nav ul li a {
+                display: block; /* Ocupa toda a largura do item */
+                font-size: 1.1em; /* Tamanho da fonte maior para mobile */
+            }
+
+            .menu-toggle {
+                display: block; /* Mostra o ícone de hamburguer */
+            }
+
+            /* Esconde o botão de associar na nav em mobile (para telas maiores que 768px ele estará visível) */
+            .btn-associar.desktop-only {
+                display: none; 
+            }
+
+            /* Mostra o botão de associar APENAS dentro do menu quando em mobile */
+            .btn-associar.mobile-only {
+                display: inline-block; /* Re-exibe para o menu */
+                width: 80%; /* Ajuste para dentro do menu */
+                max-width: 250px;
+                margin: 15px auto; /* Centraliza e adiciona margem */
+                font-size: 1em; /* Ajuste de tamanho */
+            }
+
+            /* Adaptações para o Hero Section */
+            .hero-section {
+                padding: 40px 15px;
+                min-height: 180px;
+            }
+
+            .hero-section h2 {
+                font-size: 2.2em; /* Reduz o tamanho da fonte */
+            }
+
+            .hero-section p {
+                font-size: 1em; /* Reduz o tamanho da fonte */
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .about-section .intro-text {
+                font-size: 1.2em;
+            }
+
+            .about-section p, .treatment-item p, .research-item p, .contact-section .contact-info p {
+                font-size: 1em;
+            }
+
+            .gallery-item img {
+                height: 220px; /* Ajuste para mobile */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+
+            .top-contact-bar span {
+                font-size: 0.8em;
+            }
+
+            .top-contact-bar .contact-icons a {
+                font-size: 1em;
+            }
+
+            header h1 {
+                font-size: 2em; /* Mais ajuste */
+            }
+
+            header p {
+                font-size: 0.9em; /* Mais ajuste */
+            }
+
+            .btn-associar.mobile-only { /* Ajuste para o botão dentro do menu em telas muito pequenas */
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+
+            .hero-section h2 {
+                font-size: 1.8em;
+            }
+
+            .hero-section p {
+                font-size: 0.9em;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .about-section ul li {
+                padding: 10px 15px;
+                font-size: 0.95em;
+            }
+            
+            .gallery-item img {
+                height: 180px; /* Mais ajuste */
+            }
+
+            .contact-section .contact-info p i {
+                font-size: 1.3em;
+                margin-right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-contact-bar">
+        <span>Entre em contato conosco pelos nossos canais oficiais:</span>
+        <div class="contact-icons">
+            <a href="mailto:cannapisassociacao@gmail.com" aria-label="E-mail">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="https://www.instagram.com/cannapisassociacao/" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://api.whatsapp.com/send?phone=5513996584714" target="_blank" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-text">
+            <h1>CANNAPIS</h1>
+            <p>Apoio, Pesquisa e Cuidado Humanizado</p>
+        </div>
+        <img src="logo cannapis.jpg" alt="Logo Cannapis" class="logo">
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i> </div>
+            <ul id="main-nav">
+                <li><a href="#">Início</a></li>
+                <li><a href="#sobre-nos">A Cannapis</a></li>
+                <li><a href="#galeria-fotos">Fotos</a></li>
+                <li><a href="#tratamentos-section">Tratamentos</a></li>
+                <li><a href="#pesquisas-section">Pesquisas</a></li>
+                <li><a href="#contato-section">Contato</a></li>
+                <li><a href="https://cannapis.cplylegacy.com.br/AreaAssociados" class="btn-associar mobile-only" target="_blank">Associe-se</a></li>
+            </ul>
+            <a href="https://cannapis.cplylegacy.com.br/AreaAssociados" class="btn-associar desktop-only" target="_blank">Associe-se</a>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <h2>Bem-vindo à Cannapis</h2>
+        <p>Promovendo saúde e bem-estar através da Cannabis Medicinal com base científica e acolhimento humanizado.</p>
+        <a href="#sobre-nos" class="btn-associar" style="background-color: #28a745; margin-top: 20px;">Saiba Mais</a>
+    </section>
+
+    <section id="sobre-nos" class="about-section">
+        <div class="container">
+            <h2 class="section-title">A Cannapis</h2>
+            <p class="intro-text">A Cannapis foi desenvolvida com o intuito de ajudar pessoas.</p>
+            <p>
+                Somos uma organização sem fins lucrativos com o objetivo, não apenas de dar apoio às famílias que precisam de um tratamento com a Cannabis Medicinal, como também de apoiar pesquisas sobre o uso da planta.
+            </p>
+            <ul>
+                <li>Acolhimento Humanizado para pacientes e familiares.</li>
+                <li>Laboratório de Ponta para pesquisa e desenvolvimento de produtos.</li>
+                <li>Produção com Cultivo Próprio, garantindo qualidade e segurança.</li>
+                <li>Área do Associado com recursos e informações exclusivas.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="galeria-fotos" class="gallery-section">
+        <div class="container">
+            <h2>Nossas Imagens</h2>
+            <div class="gallery-container">
+                <div class="gallery-item">
+                    <img src="1.jpg" alt="Notícia sobre cultivo para fins medicinais">
+                    <p>STJ concede direito de plantar maconha para fins medicinais à associação no litoral de SP.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="2.jpg" alt="Pé de Cannabis maduro">
+                    <p>Um de nossos pés de Cannabis em fase de floração.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="3.jpg" alt="Cultivo de Cannabis em estufa">
+                    <p>Ambiente controlado de cultivo.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="4.jpg" alt="Irrigação de mudas de Cannabis">
+                    <p>Cuidado e irrigação das mudas jovens.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="5.jpg" alt="Sementes de Cannabis germinando">
+                    <p>Sementes em processo de germinação.</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="6.jpg" alt="Mudas de Cannabis em sistema hidropônico">
+                    <p>Mudas em desenvolvimento no sistema de cultivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tratamentos-section" class="treatments-section">
+        <div class="container">
+            <h2 class="section-title">Tratamentos com Cannabis Medicinal</h2>
+            <div class="treatment-item">
+                <h3>Ansiedade</h3>
+                <p>O tratamento da ansiedade com cannabis medicinal pode oferecer alívio natural e reduzir sintomas de estresse, promovendo bem-estar e relaxamento.</p>
+            </div>
+            <div class="treatment-item">
+                <h3>Dor Crônica</h3>
+                <p>A cannabis medicinal é uma alternativa segura e eficaz para o alívio da dor crônica, agindo sobre receptores específicos do corpo e proporcionando uma melhor qualidade de vida.</p>
+            </div>
+            <div class="treatment-item">
+                <h3>Doenças Demenciais</h3>
+                <p>Na área de doenças demenciais, a cannabis medicinal pode oferecer neuroproteção, auxiliando na desaceleração do declínio cognitivo e promovendo um envelhecimento mais saudável e digno.</p>
+            </div>
+            <div class="treatment-item">
+                <h3>Fibromialgia</h3>
+                <p>A Cannabis utilizada no tratamento da fibromialgia tem se mostrado uma alternativa segura e eficaz para pacientes que convivem com as incômodas dores generalizadas no corpo, melhorando a qualidade do sono e a disposição diária.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="pesquisas-section" class="research-section">
+        <div class="container">
+            <h2 class="section-title">Pesquisas sobre Canabidiol (CBD)</h2>
+            <div class="research-item">
+                <h3>O que é o Canabidiol (CBD)?</h3>
+                <p>
+                    O canabidiol (CBD) é um composto químico da planta Cannabis sativa, mas, ao contrário do tetraidrocanabinol (THC), ele não causa efeitos psicoativos (ou seja, não “dá barato”). Estudos indicam que o CBD pode ter benefícios terapêuticos para diversas condições, como inflamação, dor, ansiedade e epilepsia, sendo amplamente investigado pela comunidade científica.
+                </p>
+                <p>
+                    Para saber mais, visite a fonte: <a href="https://www.msdmanuals.com/pt/casa/assuntos-especiais/suplementos-alimentares-e-vitaminas/canabidiol-cbd" target="_blank">Manual MSD - Canabidiol (CBD)</a>
+                </p>
+            </div>
+            <div class="research-item">
+                <h3>Como o THC funciona no corpo?</h3>
+                <p>
+                    O THC age no sistema endocanabinoide do corpo, que é um sistema complexo de receptores e neurotransmissores que desempenham um papel na regulação de várias funções fisiológicas, como humor, sono, apetite, dor e memória.
+                </p>
+                <p>
+                    Para saber mais, visite a fonte: <a href="https://www.terra.com.br/vida-e-estilo/saude/veja-como-o-thc-pode-auxiliar-no-tratamento-de-doencas,464f479b22804016298f66883cb16632a1bo8k18.html" target="_blank">Terra - Como o THC pode auxiliar no tratamento de doenças</a>
+                </p>
+            </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato-section" class="contact-section">
+        <div class="container">
+            <h2 class="section-title">Entre em Contato</h2>
+            <div class="contact-info">
+                <p>
+                    <a href="mailto:cannapisassociacao@gmail.com">
+                        <i class="fas fa-envelope"></i> E-mail: cannapisassociacao@gmail.com
+                    </a>
+                </p>
+                <p>
+                    <a href="https://www.instagram.com/cannapisassociacao/" target="_blank">
+                        <i class="fab fa-instagram"></i> Instagram: @cannapisassociacao
+                    </a>
+                </p>
+                <p>
+                    <a href="https://api.whatsapp.com/send?phone=5513996584714" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: (13) 99658-4714
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="location-section" class="location-section">
+        <div class="container">
+            <h2 class="section-title">Nossa Localização</h2>
+            <p class="address-line">Rua Antonio Siqueira, Nº: 1078 - Jardim Beira Mar</p>
+            <p class="address-line">Peruíbe - SP, CEP: 11.775-278</p>
+            <p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Rua+Antonio+Siqueira+1078,+Jardim+Beira+Mar,+Peruibe+-+SP,+11775-278" target="_blank" aria-label="Ver no Google Maps">Ver no Google Maps</a>
+            </p>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <p>© 2025 Cannapis. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mainNav = document.getElementById('main-nav');
+
+            if (menuToggle && mainNav) {
+                menuToggle.addEventListener('click', function() {
+                    mainNav.classList.toggle('active');
+                });
+
+                // Fecha o menu ao clicar em um link (para navegação em single-page)
+                mainNav.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        if (mainNav.classList.contains('active')) {
+                            mainNav.classList.remove('active');
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
