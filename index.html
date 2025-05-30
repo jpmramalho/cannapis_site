@@ -386,6 +386,59 @@
             margin-bottom: 0;
         }
 
+        /* Seção de Doenças que a cannabis ajuda a tratar */
+        .diseases-section {
+            background-color: #fefefe;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+            padding-top: 20px;
+            text-align: center; /* Centraliza o conteúdo da seção */
+        }
+
+        .diseases-section p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #555;
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            text-align: left; /* Alinha o texto do parágrafo à esquerda */
+        }
+
+        .diseases-section .source-link {
+            font-size: 0.95em;
+            color: #007bff;
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 20px; /* Adiciona margem antes do botão */
+        }
+
+        /* Estilo para o novo botão "Saiba Mais" */
+        .btn-saiba-mais {
+            background-color: #28a745; /* Verde da marca */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block; /* Permite centralizar */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-top: 15px; /* Espaçamento do texto acima */
+            margin-bottom: 20px; /* Espaçamento do rodapé ou próxima seção */
+        }
+
+        .btn-saiba-mais:hover {
+            background-color: #218838; /* Verde mais escuro no hover */
+            transform: translateY(-2px);
+        }
+
+
         /* Seção de Pesquisas */
         .research-section {
             background-color: #fefefe;
@@ -662,7 +715,7 @@
                 font-size: 1.2em;
             }
 
-            .about-section p, .treatment-item p, .research-item p, .contact-section .contact-info p {
+            .about-section p, .treatment-item p, .research-item p, .contact-section .contact-info p, .diseases-section p {
                 font-size: 1em;
             }
 
@@ -758,6 +811,7 @@
                 <li><a href="#sobre-nos">A Cannapis</a></li>
                 <li><a href="#galeria-fotos">Fotos</a></li>
                 <li><a href="#tratamentos-section">Tratamentos</a></li>
+                <li><a href="#doencas-tratadas">Doenças</a></li>
                 <li><a href="#pesquisas-section">Pesquisas</a></li>
                 <li><a href="#contato-section">Contato</a></li>
                 <li><a href="https://cannapis.cplylegacy.com.br/AreaAssociados" class="btn-associar mobile-only" target="_blank">Associe-se</a></li>
@@ -839,6 +893,16 @@
                 <h3>Fibromialgia</h3>
                 <p>A Cannabis utilizada no tratamento da fibromialgia tem se mostrado uma alternativa segura e eficaz para pacientes que convivem com as incômodas dores generalizadas no corpo, melhorando a qualidade do sono e a disposição diária.</p>
             </div>
+        </div>
+    </section>
+
+    <section id="doencas-tratadas" class="diseases-section">
+        <div class="container">
+            <h2 class="section-title">Doenças que a Cannabis Ajuda a Tratar</h2>
+            <p>
+                A cannabis medicinal tem sido investigada e utilizada no tratamento de uma ampla gama de condições e doenças. Isso inclui condições como Alzheimer, ansiedade, apneia do sono, artrite reumatoide e arterite temporal. Também são abordadas asma, transtorno bipolar, bruxismo, burnout, bursite e calvície. Outras condições para as quais a cannabis é considerada são câncer (inclusive em animais), COVID-19, depressão, diabetes, disfunção temporomandibular, distúrbios alimentares, distúrbios endócrinos e doenças autoimunes. Além disso, a cannabis é estudada para doenças intestinais, dor crônica, endometriose, enxaqueca, epilepsia, esclerose múltipla, fadiga muscular, fibromialgia e glaucoma.
+            </p>
+            <a href="https://sechat.com.br/doencas" target="_blank" class="btn-saiba-mais">Saiba Mais</a>
         </div>
     </section>
 
