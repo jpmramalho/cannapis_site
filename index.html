@@ -329,6 +329,12 @@
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
+            cursor: pointer; /* Adicionado cursor pointer */
+            transition: transform 0.2s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
         }
 
         .gallery-item img {
@@ -345,6 +351,94 @@
             font-size: 1em;
             color: #555;
         }
+
+        /* Estilos do Modal da Galeria */
+        .modal-gallery {
+            display: none; /* Escondido por padrão */
+            position: fixed;
+            z-index: 2000; /* Acima de tudo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9); /* Fundo semi-transparente escuro */
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .modal-gallery.active {
+            display: flex;
+        }
+
+        .modal-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 900px; /* Largura máxima para a imagem */
+        }
+
+        .modal-img {
+            max-width: 100%;
+            max-height: 80vh; /* Altura máxima da viewport */
+            display: block;
+            margin: auto;
+            border-radius: 8px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 2001; /* Garante que o botão de fechar esteja acima */
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-nav-button {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -50px;
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            -webkit-user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-nav-button.prev {
+            left: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .modal-nav-button.next {
+            right: 0;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .modal-nav-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
 
         /* Seção de Tratamentos */
         .treatments-section {
@@ -740,6 +834,73 @@
                 margin-right: 10px;
             }
         }
+
+        /* Estilos para o banner de cookies */
+        #cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 0.95em;
+            z-index: 10000; /* Acima de tudo */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            transform: translateY(100%); /* Começa escondido */
+            transition: transform 0.5s ease-out;
+        }
+
+        #cookie-banner.show {
+            transform: translateY(0); /* Mostra o banner */
+        }
+
+        #cookie-banner p {
+            margin: 0 20px 0 0;
+            flex-grow: 1; /* Permite que o parágrafo ocupe o espaço disponível */
+            max-width: 80%; /* Limita a largura do texto */
+        }
+
+        #cookie-banner a {
+            color: #28a745;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        #cookie-banner button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            white-space: nowrap; /* Evita que o botão quebre a linha */
+        }
+
+        #cookie-banner button:hover {
+            background-color: #218838;
+        }
+
+        @media (max-width: 768px) {
+            #cookie-banner {
+                flex-direction: column;
+                padding: 15px;
+            }
+            #cookie-banner p {
+                margin: 0 0 10px 0;
+                max-width: 100%;
+            }
+            #cookie-banner button {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -807,35 +968,44 @@
 
     <section id="galeria-fotos" class="gallery-section">
         <div class="container">
-            <h2>Nossas Imagens</h2>
+            <h2 class="section-title">Nossas Imagens</h2>
             <div class="gallery-container">
-                <div class="gallery-item">
+                <div class="gallery-item" data-index="0">
                     <img src="1.jpg" alt="Notícia sobre cultivo para fins medicinais">
                     <p>STJ concede direito de plantar maconha para fins medicinais à associação no litoral de SP.</p>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-index="1">
                     <img src="2.jpg" alt="Pé de Cannabis maduro">
                     <p>Um de nossos pés de Cannabis em fase de floração.</p>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-index="2">
                     <img src="3.jpg" alt="Cultivo de Cannabis em estufa">
                     <p>Cultivo em ambiente protegido.</p>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-index="3">
                     <img src="4.jpg" alt="Irrigação de mudas de Cannabis">
                     <p>Cuidado e irrigação das mudas jovens.</p>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-index="4">
                     <img src="5.jpg" alt="Sementes de Cannabis germinando">
                     <p>Sementes em processo de germinação.</p>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-index="5">
                     <img src="6.jpg" alt="Mudas de Cannabis em sistema hidropônico">
                     <p>Mudas em desenvolvimento no sistema de cultivo.</p>
                 </div>
-            </div>
+                </div>
         </div>
     </section>
+
+    <div id="modalGallery" class="modal-gallery">
+        <span class="close-button">&times;</span>
+        <div class="modal-content">
+            <a class="modal-nav-button prev" id="prevBtn">&#10094;</a>
+            <img class="modal-img" id="currentImage" src="" alt="Imagem da Galeria">
+            <a class="modal-nav-button next" id="nextBtn">&#10095;</a>
+        </div>
+    </div>
 
     <section id="tratamentos-section" class="treatments-section">
         <div class="container">
@@ -923,17 +1093,24 @@
         </div>
     </footer>
 
+    <div id="cookie-banner">
+        <p>Este site utiliza cookies para garantir a melhor experiência de navegação. Ao continuar, você concorda com nossa <a href="#">Política de Cookies</a>.</p>
+        <button id="accept-cookies">Entendi</button>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const menuToggle = document.getElementById('menu-toggle');
             const mainNav = document.getElementById('main-nav');
+            const cookieBanner = document.getElementById('cookie-banner');
+            const acceptCookiesBtn = document.getElementById('accept-cookies');
 
+            // Lógica do menu mobile
             if (menuToggle && mainNav) {
                 menuToggle.addEventListener('click', function() {
                     mainNav.classList.toggle('active');
                 });
 
-                // Fecha o menu ao clicar em um link (para navegação em single-page)
                 mainNav.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', function() {
                         if (mainNav.classList.contains('active')) {
@@ -942,7 +1119,125 @@
                     });
                 });
             }
+
+            // Lógica do banner de cookies
+            // Verifica se o usuário já aceitou os cookies
+            const hasAcceptedCookies = localStorage.getItem('cookiesAccepted');
+
+            if (!hasAcceptedCookies) {
+                // Se não aceitou, mostra o banner após um pequeno atraso
+                setTimeout(() => {
+                    cookieBanner.classList.add('show');
+                }, 1000); // Mostra o banner após 1 segundo
+            }
+
+            // Ao clicar no botão 'Entendi', esconde o banner e registra a aceitação
+            if (acceptCookiesBtn) {
+                acceptCookiesBtn.addEventListener('click', function() {
+                    cookieBanner.classList.remove('show');
+                    localStorage.setItem('cookiesAccepted', 'true'); // Armazena a preferência
+                });
+            }
+
+            // Lógica da Galeria de Imagens
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const modalGallery = document.getElementById('modalGallery');
+            const currentImage = document.getElementById('currentImage');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const closeButton = document.querySelector('.close-button');
+
+            // Array de imagens completo, incluindo as novas imagens
+            const images = [
+                { src: '1.jpg', alt: 'Notícia sobre cultivo para fins medicinais' },
+                { src: '2.jpg', alt: 'Um de nossos pés de Cannabis em fase de floração.' },
+                { src: '3.jpg', alt: 'Cultivo em ambiente protegido.' },
+                { src: '4.jpg', alt: 'Cuidado e irrigação das mudas jovens.' },
+                { src: '5.jpg', alt: 'Sementes em processo de germinação.' },
+                { src: '6.jpg', alt: 'Mudas em desenvolvimento no sistema de cultivo.' },
+                { src: '8.jpg', alt: 'Cultivo interno com diversas plantas em vasos.' },
+                { src: '9.jpg', alt: 'Plantas jovens de cannabis em vasos no chão.' },
+                { src: '10.jpg', alt: 'Aproximação de botões de cannabis em floração.' },
+                { src: '11.jpg', alt: 'Outra vista detalhada de botões de cannabis em floração.' }
+            ];
+
+            let currentIndex = 0;
+
+            function showImage(index) {
+                if (index < 0) {
+                    currentIndex = images.length - 1;
+                } else if (index >= images.length) {
+                    currentIndex = 0;
+                } else {
+                    currentIndex = index;
+                }
+                currentImage.src = images[currentIndex].src;
+                currentImage.alt = images[currentIndex].alt;
+            }
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    showImage(index);
+                    modalGallery.classList.add('active');
+                });
+            });
+
+            closeButton.addEventListener('click', function() {
+                modalGallery.classList.remove('active');
+            });
+
+            prevBtn.addEventListener('click', function() {
+                showImage(currentIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', function() {
+                showImage(currentIndex + 1);
+            });
+
+            // Fechar modal clicando fora da imagem
+            modalGallery.addEventListener('click', function(event) {
+                if (event.target === modalGallery) {
+                    modalGallery.classList.remove('active');
+                }
+            });
+
+            // Fechar modal com a tecla ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modalGallery.classList.contains('active')) {
+                    modalGallery.classList.remove('active');
+                }
+            });
         });
+
+        // Função de exemplo para definir um cookie (usada apenas para ilustração)
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+
+        // Função de exemplo para obter um cookie (usada apenas para ilustração)
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i=0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Exemplo de como você poderia usar as funções de cookie APÓS o usuário aceitar
+        // if (localStorage.getItem('cookiesAccepted') === 'true') {
+        //     setCookie("user_preference", "dark_mode", 30); // Define um cookie de preferência
+        //     console.log("Preferência do usuário:", getCookie("user_preference"));
+        // }
     </script>
 </body>
 </html>
